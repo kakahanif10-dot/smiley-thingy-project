@@ -130,15 +130,14 @@ export function Hero() {
                     start()
                   }
                 }}
-                className="w-full flex-1 resize-none bg-transparent text-left text-sm text-foreground placeholder:text-transparent focus:outline-none"
+                className="font-warm w-full flex-1 resize-none bg-transparent text-left text-sm text-foreground placeholder:text-transparent focus:outline-none"
               />
               {prompt === '' && !focused && (
                 <div
                   aria-hidden
-                  className="pointer-events-none absolute inset-0 text-left text-sm text-muted-foreground"
+                  className="font-warm pointer-events-none absolute inset-0 text-left text-sm text-muted-foreground"
                 >
                   Ask SUPERINTELLIGENS to build {typed}
-                  <span className="ml-0.5 inline-block h-4 w-[2px] animate-pulse bg-primary align-middle" />
                 </div>
               )}
             </div>
