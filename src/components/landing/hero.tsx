@@ -1,6 +1,6 @@
 
 import Link from '@/components/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from '@/lib/next-router'
 import { motion } from 'framer-motion'
 import { ArrowRight, Paperclip, Sparkles } from 'lucide-react'
@@ -13,9 +13,58 @@ const SUGGESTIONS = [
   'A team task board',
 ]
 
+const TYPED_IDEAS = [
+  'a blog for my recipes...',
+  'a coffee shop catalogue...',
+  'a booking page for my salon...',
+  'a portfolio for my photos...',
+]
+
+function useTypewriter(phrases: string[]) {
+  const [text, setText] = useState('')
+
+  useEffect(() => {
+    let phrase = 0
+    let char = 0
+    let deleting = false
+    let timer: ReturnType<typeof setTimeout>
+
+    const tick = () => {
+      const current = phrases[phrase] ?? ''
+      if (!deleting) {
+        char += 1
+        setText(current.slice(0, char))
+        if (char >= current.length) {
+          deleting = true
+          timer = setTimeout(tick, 1800)
+          return
+        }
+        timer = setTimeout(tick, 55)
+      } else {
+        char -= 1
+        setText(current.slice(0, char))
+        if (char <= 0) {
+          deleting = false
+          phrase = (phrase + 1) % phrases.length
+          timer = setTimeout(tick, 400)
+          return
+        }
+        timer = setTimeout(tick, 28)
+      }
+    }
+
+    timer = setTimeout(tick, 600)
+    return () => clearTimeout(timer)
+  }, [phrases])
+
+  return text
+}
+
 export function Hero() {
   const router = useRouter()
   const [prompt, setPrompt] = useState('')
+  const [focused, setFocused] = useState(false)
+  const typed = useTypewriter(TYPED_IDEAS)
 
   const start = () => {
     router.push('/login')
