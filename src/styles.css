@@ -34,6 +34,7 @@
   --color-sidebar-accent: var(--sidebar-accent);
 
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-warm: "Quicksand", "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Plus Jakarta Sans", ui-monospace, monospace;
 
   --radius-sm: calc(var(--radius) * 0.6);
