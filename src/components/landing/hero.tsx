@@ -113,23 +113,35 @@ export function Hero() {
           className="mt-8 w-full max-w-2xl"
         >
           <div className="flex flex-col rounded-2xl border border-border bg-card p-4 glow-border">
-            <textarea
-              value={prompt}
-              onChange={(e) => setPrompt(e.target.value)}
-              onKeyDown={(e) => {
-                if (
-                  e.key === 'Enter' &&
-                  !e.shiftKey &&
-                  !e.nativeEvent.isComposing &&
-                  e.keyCode !== 229
-                ) {
-                  e.preventDefault()
-                  start()
-                }
-              }}
-              placeholder="Ask SUPERINTELLIGENS to build a dashboard for my coffee shop..."
-              className="w-full flex-1 resize-none bg-transparent text-left text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
-            />
+            <div className="relative">
+              <textarea
+                value={prompt}
+                onChange={(e) => setPrompt(e.target.value)}
+                onFocus={() => setFocused(true)}
+                onBlur={() => setFocused(false)}
+                onKeyDown={(e) => {
+                  if (
+                    e.key === 'Enter' &&
+                    !e.shiftKey &&
+                    !e.nativeEvent.isComposing &&
+                    e.keyCode !== 229
+                  ) {
+                    e.preventDefault()
+                    start()
+                  }
+                }}
+                className="w-full flex-1 resize-none bg-transparent text-left text-sm text-foreground placeholder:text-transparent focus:outline-none"
+              />
+              {prompt === '' && !focused && (
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 text-left text-sm text-muted-foreground"
+                >
+                  Ask SUPERINTELLIGENS to build {typed}
+                  <span className="ml-0.5 inline-block h-4 w-[2px] animate-pulse bg-primary align-middle" />
+                </div>
+              )}
+            </div>
             <div className="flex items-center justify-between">
               <button
                 type="button"
